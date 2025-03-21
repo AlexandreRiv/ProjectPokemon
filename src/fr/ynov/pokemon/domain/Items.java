@@ -1,4 +1,10 @@
 package fr.ynov.pokemon.domain;
 
-public class Items {
+public abstract class Items {
+
+    private String name;
+
+    public Items(String name) {
+        this.name = name;
+    }
 }
