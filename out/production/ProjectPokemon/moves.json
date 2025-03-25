@@ -1,0 +1,22 @@
+{
+  "moves": [
+    {
+      "id": 1,
+      "name": "Tackle",
+      "type": "NORMAL",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 35,
+      "description": "A physical attack in which the user charges and slams into the target with its whole body.",
+    },
+    {
+      "id": 2,
+      "name": "Ember",
+      "type": "FIRE",
+      "power": 40,
+      "accuracy": 100,
+      "pp": 25,
+      "description": "The target is attacked with small flames. May cause burn.",
+    }
+  ]
+}
