@@ -24,17 +24,17 @@ public class BattlePanel extends JPanel {
         statusLabel = new JLabel("Battle Started!");
         add(statusLabel, BorderLayout.CENTER);
 
-        battleSystem.setUIComponents(lifeBar);
+        battleSystem.setLifeBar(lifeBar);
     }
 
 
 
     public void executeMove(Moves playerMoves) {
 
-        battleSystem.executeMoveGUI(battleSystem.getPlayerPokemon() , battleSystem.getOpponentPokemon(), playerMoves);
-        if (!battleSystem.getOpponentPokemon().isFainted()) {
+        battleSystem.executeMoveGUI(battleSystem.getPokemonFactory().getPlayerPokemon() , battleSystem.getPokemonFactory().getOpponentPokemon(), playerMoves);
+        if (!battleSystem.getPokemonFactory().getOpponentPokemon().isFainted()) {
             Moves enemyMoves = battleSystem.selectEnemyMove();
-            battleSystem.executeMoveGUI(battleSystem.getOpponentPokemon(), battleSystem.getPlayerPokemon(), enemyMoves);
+            battleSystem.executeMoveGUI(battleSystem.getPokemonFactory().getOpponentPokemon(), battleSystem.getPokemonFactory().getPlayerPokemon(), enemyMoves);
         }
 
 
@@ -46,14 +46,14 @@ public class BattlePanel extends JPanel {
 
     private void checkEndGame() {
 
-        if (battleSystem.getOpponentPokemon().isFainted()) {
+        if (battleSystem.getPokemonFactory().getOpponentPokemon().isFainted()) {
 
-            statusLabel.setText(battleSystem.getPlayerPokemon().getName() + " has won the battle!");
+            statusLabel.setText(battleSystem.getPokemonFactory().getPlayerPokemon().getName() + " has won the battle!");
             statusLabel.setText("You have won the battle!");
 
-        } else if (battleSystem.getPlayerPokemon().isFainted()) {
+        } else if (battleSystem.getPokemonFactory().getPlayerPokemon().isFainted()) {
 
-              statusLabel.setText(battleSystem.getOpponentPokemon().getName() + " has won the battle!");
+              statusLabel.setText(battleSystem.getPokemonFactory().getOpponentPokemon().getName() + " has won the battle!");
               statusLabel.setText("You have lost the battle!");
 
         }

@@ -9,6 +9,8 @@ public class Moves {
     private Type type;
     private String description;
 
+    // Constructor
+
     public Moves(String name, int power, int accuracy, int pp, int maxPp,Type type2 , String description) {
         this.name = name;
         this.power = power;
@@ -19,6 +21,11 @@ public class Moves {
         this.description = description;
     }
 
+    // Constructor end
+
+
+    // Method
+
     public boolean isUsable() {
         if (pp > 0) {
             pp--;
@@ -27,6 +34,9 @@ public class Moves {
         return false;
     }
 
+    // Method end
+
+    // Getter
 
     public String getName() {
         return name;
@@ -47,4 +57,6 @@ public class Moves {
     public int getPower() {
         return power;
     }
+
+    // Getter end
 }

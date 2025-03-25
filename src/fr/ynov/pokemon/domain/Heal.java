@@ -4,8 +4,14 @@ public class Heal extends Potions {
     private final int heal;
 
 
-    public Heal(String name, int prices) {
-        super(name, prices);
+    public Heal() {
+        super("Heal");
         this.heal = 20;
+    }
+
+    public void use(Pokemon pokemon) {
+       if (pokemon.getHp() < pokemon.getMaxHp()){
+           pokemon.setHp(pokemon.getHp() + heal);
+       }
     }
 }

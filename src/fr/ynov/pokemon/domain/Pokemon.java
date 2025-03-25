@@ -17,6 +17,7 @@ public class Pokemon {
     private Type type2;
     private List<Moves> moves;
 
+    // Constructor
 
     public Pokemon(String name, int i, int i1,int i2 , int i3, int i4, int i5, Type type3, Type type4) {
 
@@ -33,6 +34,10 @@ public class Pokemon {
         this.moves = new ArrayList<Moves>();
 
     }
+
+    // Constructor end
+
+    // Methods
 
     public boolean isFainted() {
         return hp <= 0;
@@ -54,12 +59,13 @@ public class Pokemon {
             moves.add(move);
     }
 
+    // Methods end
+
+
+    // Getter & Setter
+
     public String getName() {
         return name ;
-    }
-
-    public int getSpeed() {
-        return speed;
     }
 
     public List<Moves> getMoves() {
@@ -80,17 +86,6 @@ public class Pokemon {
 
     public int getDefense() {
         return defense;
-    }
-
-    public Type getType1() {
-        return type;
-    }
-
-    public Type getType2() {
-        if (type2 == null) {
-            return null;
-        }
-        return type2;
     }
 
     public int getMaxHp() {

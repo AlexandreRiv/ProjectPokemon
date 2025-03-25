@@ -1,11 +1,10 @@
 package fr.ynov.pokemon.domain;
 
 public abstract class Potions extends Items {
-    private int prices;
 
-    public Potions(String name, int prices) {
+
+    public Potions(String name) {
         super(name);
-        this.prices = prices;
     }
 
 }

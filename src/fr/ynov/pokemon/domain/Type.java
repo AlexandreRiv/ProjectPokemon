@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Type {
+
     private String name;
-    private Map<String, Double> effectiveness;
+    private final Map<String, Double> effectiveness;
     private Map<String, Type> types;
+
+    // Constructor
 
     public Type(String name) {
         this.name = name;
@@ -14,9 +17,14 @@ public class Type {
     }
 
     public Type() {
-        this.types = new HashMap<>();
+        this.effectiveness = new HashMap<>();
         initializedTypes();
     }
+
+    //Constructor end
+
+
+    // Method
 
     private void setTypeEffectiveness(String attackType, String defendType, double value) {
         types.get(attackType).addEffectiveness(defendType, value);
@@ -27,7 +35,6 @@ public class Type {
             setTypeEffectiveness(type, typeEffectiveness[0], Double.parseDouble(typeEffectiveness[1]));
         }
     }
-
 
     private void createTypes() {
 
@@ -41,10 +48,11 @@ public class Type {
         }
     }
     private void initializedTypes() {
-        types = new HashMap<>();
-        createTypes();
-        initializeEffectiveness();
-
+        if (types == null){
+            types = new HashMap<>();
+            createTypes();
+            initializeEffectiveness();
+        }
     }
 
     private void initializeEffectiveness(){
@@ -107,12 +115,19 @@ public class Type {
         return this.effectiveness.getOrDefault(type, 1.0);
     }
 
+    // Method end
+
+
+    // Getter
+
     public String getName() {
         return this.name;
     }
 
     public Map<String, Type> getTypes() {
+        if(types == null){
+            new Type();
+        }
         return types;
     }
-
 }

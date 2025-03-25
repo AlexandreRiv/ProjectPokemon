@@ -22,33 +22,33 @@ public class LifeBar extends JPanel {
 
         JPanel lifeBarPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
-        this.playerHealthBar = new JProgressBar(0, battleSystem.getPlayerPokemon().getMaxHp());
-        playerHealthBar.setValue(battleSystem.getPlayerPokemon().getHp());
+        this.playerHealthBar = new JProgressBar(0, battleSystem.getPokemonFactory().getPlayerPokemon().getMaxHp());
+        playerHealthBar.setValue(battleSystem.getPokemonFactory().getPlayerPokemon().getHp());
         playerHealthBar.setStringPainted(true);
 
-        this.enemyHealthBar = new JProgressBar(0, battleSystem.getOpponentPokemon().getMaxHp());
-        enemyHealthBar.setValue(battleSystem.getOpponentPokemon().getHp());
+        this.enemyHealthBar = new JProgressBar(0, battleSystem.getPokemonFactory().getOpponentPokemon().getMaxHp());
+        enemyHealthBar.setValue(battleSystem.getPokemonFactory().getOpponentPokemon().getHp());
         enemyHealthBar.setStringPainted(true);
 
 
-        lifeBarPanel.add(new JLabel("Enemy: " + battleSystem.getOpponentPokemon().getName()));
+        lifeBarPanel.add(new JLabel("Enemy: " + battleSystem.getPokemonFactory().getOpponentPokemon().getName()));
         lifeBarPanel.add(enemyHealthBar);
 
-        lifeBarPanel.add(new JLabel("Player: " + battleSystem.getPlayerPokemon().getName()));
+        lifeBarPanel.add(new JLabel("Player: " + battleSystem.getPokemonFactory().getPlayerPokemon().getName()));
         lifeBarPanel.add(playerHealthBar);
 
         add(lifeBarPanel, BorderLayout.NORTH);
 
-       battleSystem.setUIComponents(this);
+       battleSystem.setLifeBar(this);
 
     }
 
     public void updateHealth(JLabel statusLabel) {
-        Pokemon pokemonPlayer = battleSystem.getPlayerPokemon();
-        Pokemon pokemonEnemy = battleSystem.getOpponentPokemon();
+        Pokemon pokemonPlayer = battleSystem.getPokemonFactory().getPlayerPokemon();
+        Pokemon pokemonEnemy = battleSystem.getPokemonFactory().getOpponentPokemon();
 
-        playerHealthBar.setValue(battleSystem.getPlayerPokemon().getHp());
-        enemyHealthBar.setValue(battleSystem.getOpponentPokemon().getHp());
+        playerHealthBar.setValue(battleSystem.getPokemonFactory().getPlayerPokemon().getHp());
+        enemyHealthBar.setValue(battleSystem.getPokemonFactory().getOpponentPokemon().getHp());
 
         statusLabel.setText(String.format("%s HP: %d/%d | %s HP: %d/%d",
                 pokemonPlayer.getName(), pokemonPlayer.getHp(), pokemonPlayer.getMaxHp(),

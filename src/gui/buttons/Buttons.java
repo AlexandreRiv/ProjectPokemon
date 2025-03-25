@@ -18,7 +18,6 @@ public class Buttons extends JPanel {
 
     private final BattleSystem battleSystem;
     private final JPanel movesPanel;
-    private boolean isShowingMoves = false;
 
     public Buttons(BattleSystem battleSystem , BattlePanel battlePanel) {
         this.battleSystem = battleSystem;
@@ -35,6 +34,7 @@ public class Buttons extends JPanel {
                 }
             }
         };
+
         movesPanel.addKeyListener(keyListener);
         addKeyListener(keyListener);
 
@@ -54,17 +54,21 @@ public class Buttons extends JPanel {
         buttonAttack.addActionListener(e -> {showMoves(battlePanel);movesPanel.requestFocusInWindow();});
 
         movesPanel.add(buttonBag);
+
+        Moves move = new Moves("Potion", 0, 0, 0, 0, null, "");
+        buttonBag.addActionListener(e -> {battleSystem.getPlayer().usePotion(battleSystem.getPokemonFactory().getPlayerPokemon());
+        battlePanel.executeMove(move);});
+
         movesPanel.add(buttonPokemon);
         movesPanel.add(buttonEscape);
 
     }
 
     private void showMoves(BattlePanel battlePanel) {
-        isShowingMoves = true;
 
         movesPanel.removeAll();
 
-        List<Moves> moves = battleSystem.getPlayerPokemon().getMoves();
+        List<Moves> moves = battleSystem.getPokemonFactory().getPlayerPokemon().getMoves();
         for (Moves move : moves) {
             JButton button =new JButton(move.getName());
             button.addActionListener(e -> {battlePanel.executeMove(move); removeMoves(battlePanel);});
@@ -77,13 +81,12 @@ public class Buttons extends JPanel {
     }
 
     private void removeMoves(BattlePanel battlePanel) {
-        if (!isShowingMoves) return;
 
-        isShowingMoves = false;
         movesPanel.removeAll();
         mainButton(battlePanel);
         movesPanel.revalidate();
         movesPanel.repaint();
-
     }
+
+
 }

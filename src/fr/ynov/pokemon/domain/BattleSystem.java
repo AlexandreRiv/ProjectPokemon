@@ -1,67 +1,35 @@
 package fr.ynov.pokemon.domain;
 
+import fr.ynov.pokemon.factory.PokemonFactory;
 import gui.frame.LifeBar;
 
-import javax.swing.*;
-import java.util.*;
+import javax.swing.JLabel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class BattleSystem {
 
     private LifeBar lifeBar;
-    private Pokemon playerPokemon;
-    private Pokemon opponentPokemon;
     private Random random = new Random();
-    private final Type types;
+    private final PokemonFactory pokemonFactory;
+    private final Player player;
 
+    // Constructor
 
     public BattleSystem() {
+        this.player = new Player("PlayerTest");
         random = new Random();
-        this.types = new Type();
-        createPokemon();
-    }
+        pokemonFactory = new PokemonFactory();
 
-    public void setUIComponents(LifeBar lifeBar) {
-        this.lifeBar = lifeBar;
     }
 
 
-    private void createPokemon() {
-        // Create player's Pokémon - Charizard
-        Type fireType = types.getTypes().get("Fire");
-        Type flyingType = types.getTypes().get("Flying");
-        playerPokemon = new Pokemon("Charizard",3, 150 , 150 ,84 , 78 , 50 ,  fireType, flyingType);
-
-        // Add moves to Charizard
-        Moves flamethrower = new Moves("Flamethrower", 95, 100, 15, 15 , fireType , "");
-        Moves fireBlast = new Moves("Fire Blast", 120, 85, 5, 5, fireType , "");
-        Moves slash = new Moves("Smash", 70, 100, 20, 20 , types.getTypes().get("Normal") , "");
-        Moves earthquake = new Moves("Earthquake", 100, 100, 10, 10 , types.getTypes().get("Ground") , "");
-
-
-        playerPokemon.addMoves(flamethrower);
-        playerPokemon.addMoves(fireBlast);
-        playerPokemon.addMoves(slash);
-        playerPokemon.addMoves(earthquake);
-
-        // Create enemy Pokémon - Blastoise
-        Type waterType = types.getTypes().get("Water");
-        opponentPokemon = new Pokemon("Balroise", 6, 100, 150 ,83, 100, 85, waterType, null);
-
-        // Add moves to Blastoise
-        Moves hydroPump = new Moves("Hydro Pump", 80, 120, 5, 5, waterType , "");
-        Moves surf = new Moves("Surf", 80, 95, 100, 15, waterType , "");
-        Moves bite = new Moves("Bite", 60, 100, 25, 25, types.getTypes().get("Normal") , "");
-        Moves iceBeam = new Moves("Ice Beam", 95, 100, 10, 10  , types.getTypes().get("Ice") , "");
-
-        opponentPokemon.addMoves(hydroPump);
-        opponentPokemon.addMoves(surf);
-        opponentPokemon.addMoves(bite);
-        opponentPokemon.addMoves(iceBeam);
-    }
-
+    // Methods
 
     public Moves selectEnemyMove() {
-        List<Moves> moves = opponentPokemon.getMoves();
+        List<Moves> moves = pokemonFactory.getOpponentPokemon().getMoves();
         List<Moves> availableMoves = new ArrayList<>();
 
         for (Moves move : moves) {
@@ -115,13 +83,6 @@ public class BattleSystem {
         return Math.max(1, (int) finalDamage);
     }
 
-    public Pokemon getPlayerPokemon() {
-        return playerPokemon;
-    }
-
-    public Pokemon getOpponentPokemon() {
-        return opponentPokemon;
-    }
 
     public void executeMoveGUI(Pokemon attacker, Pokemon defender, Moves move) {
         executeMove(attacker, defender, move);
@@ -129,4 +90,21 @@ public class BattleSystem {
             lifeBar.updateHealth(new JLabel());
         }
     }
+
+    // Methods end
+
+    // Getter & Setter
+
+    public PokemonFactory getPokemonFactory() {
+        return pokemonFactory;
+    }
+
+    public void setLifeBar(LifeBar lifeBar) {
+        this.lifeBar = lifeBar;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
 }

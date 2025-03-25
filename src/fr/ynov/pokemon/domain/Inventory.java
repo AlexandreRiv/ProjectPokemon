@@ -26,8 +26,12 @@ public class Inventory {
     }
 
     public void removeItem(Items item) {
-
         inventory.remove(item);
     }
+
+    public List<Items> getInventory() {
+        return inventory;
+    }
+
 
 }
