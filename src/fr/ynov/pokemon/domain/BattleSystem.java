@@ -1,18 +1,27 @@
 package fr.ynov.pokemon.domain;
 
+import gui.frame.LifeBar;
+
+import javax.swing.*;
 import java.util.*;
 
 public class BattleSystem {
+
+    private LifeBar lifeBar;
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
     private Random random = new Random();
-    private Type types;
+    private final Type types;
 
 
     public BattleSystem() {
         random = new Random();
         this.types = new Type();
         createPokemon();
+    }
+
+    public void setUIComponents(LifeBar lifeBar) {
+        this.lifeBar = lifeBar;
     }
 
 
@@ -25,8 +34,9 @@ public class BattleSystem {
         // Add moves to Charizard
         Moves flamethrower = new Moves("Flamethrower", 95, 100, 15, 15 , fireType , "");
         Moves fireBlast = new Moves("Fire Blast", 120, 85, 5, 5, fireType , "");
-        Moves slash = new Moves("Slash", 70, 100, 20, 20 , types.getTypes().get("Normal") , "");
+        Moves slash = new Moves("Smash", 70, 100, 20, 20 , types.getTypes().get("Normal") , "");
         Moves earthquake = new Moves("Earthquake", 100, 100, 10, 10 , types.getTypes().get("Ground") , "");
+
 
         playerPokemon.addMoves(flamethrower);
         playerPokemon.addMoves(fireBlast);
@@ -115,5 +125,8 @@ public class BattleSystem {
 
     public void executeMoveGUI(Pokemon attacker, Pokemon defender, Moves move) {
         executeMove(attacker, defender, move);
+        if (lifeBar != null) {
+            lifeBar.updateHealth(new JLabel());
+        }
     }
 }

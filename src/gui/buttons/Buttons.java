@@ -8,51 +8,80 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 
 public class Buttons extends JPanel {
 
-    private BattleSystem battleSystem;
-    private JPanel movesPanel;
+    private final BattleSystem battleSystem;
+    private final JPanel movesPanel;
+    private boolean isShowingMoves = false;
 
     public Buttons(BattleSystem battleSystem , BattlePanel battlePanel) {
         this.battleSystem = battleSystem;
         this.movesPanel = new JPanel(new GridLayout(2, 2, 5, 5));
 
-        add(movesPanel, BorderLayout.SOUTH);
+        movesPanel.setFocusable(true);
+        setFocusable(true);
 
-        mainBoutton(battlePanel);
+        KeyListener keyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    removeMoves(battlePanel);
+                }
+            }
+        };
+        movesPanel.addKeyListener(keyListener);
+        addKeyListener(keyListener);
+
+        add(movesPanel, BorderLayout.SOUTH);
+        mainButton(battlePanel);
     }
 
-    private void mainBoutton(BattlePanel battlePanel ) {
+    private void mainButton(BattlePanel battlePanel ) {
 
-        JButton button = new JButton("Attack");
-        JButton button2 = new JButton("Bag");
-        JButton button3 = new JButton("Pokemon");
-        JButton button4 = new JButton("Escape");
+        JButton buttonAttack = new JButton("Attack");
+        JButton buttonBag = new JButton("Bag");
+        JButton buttonPokemon = new JButton("Pokemon");
+        JButton buttonEscape = new JButton("Escape");
 
-        movesPanel.add(button);
+        movesPanel.add(buttonAttack);
 
-        button.addActionListener(e -> {showMoves(battlePanel);});
+        buttonAttack.addActionListener(e -> {showMoves(battlePanel);movesPanel.requestFocusInWindow();});
 
-        movesPanel.add(button2);
-        movesPanel.add(button3);
-        movesPanel.add(button4);
+        movesPanel.add(buttonBag);
+        movesPanel.add(buttonPokemon);
+        movesPanel.add(buttonEscape);
 
     }
 
     private void showMoves(BattlePanel battlePanel) {
+        isShowingMoves = true;
 
         movesPanel.removeAll();
 
         List<Moves> moves = battleSystem.getPlayerPokemon().getMoves();
         for (Moves move : moves) {
             JButton button =new JButton(move.getName());
-            button.addActionListener(e -> {battlePanel.executeMove(move);});
+            button.addActionListener(e -> {battlePanel.executeMove(move); removeMoves(battlePanel);});
             movesPanel.add(button);
         }
+        movesPanel.requestFocusInWindow();
+        movesPanel.revalidate();
+        movesPanel.repaint();
 
+    }
+
+    private void removeMoves(BattlePanel battlePanel) {
+        if (!isShowingMoves) return;
+
+        isShowingMoves = false;
+        movesPanel.removeAll();
+        mainButton(battlePanel);
         movesPanel.revalidate();
         movesPanel.repaint();
 

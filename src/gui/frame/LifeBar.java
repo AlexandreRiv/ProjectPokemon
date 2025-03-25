@@ -5,28 +5,31 @@ import fr.ynov.pokemon.domain.Pokemon;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import java.awt.BorderLayout;
+import java.awt.*;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
 
 public class LifeBar extends JPanel {
 
-    private BattleSystem battleSystem;
-    private JProgressBar playerHealthBar;
-    private JProgressBar enemyHealthBar;
-    private JPanel lifeBarPanel;
+    private final BattleSystem battleSystem;
+    private final JProgressBar playerHealthBar;
+    private final JProgressBar enemyHealthBar;
 
     public LifeBar(BattleSystem battleSystem) {
 
+        this.battleSystem = battleSystem;
+
         setLayout(new BorderLayout());
 
-        this.battleSystem = battleSystem;
-        this.lifeBarPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel lifeBarPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
         this.playerHealthBar = new JProgressBar(0, battleSystem.getPlayerPokemon().getMaxHp());
-        this.enemyHealthBar = new JProgressBar(0, battleSystem.getOpponentPokemon().getMaxHp());
+        playerHealthBar.setValue(battleSystem.getPlayerPokemon().getHp());
+        playerHealthBar.setStringPainted(true);
 
-        add(lifeBarPanel, BorderLayout.NORTH);
+        this.enemyHealthBar = new JProgressBar(0, battleSystem.getOpponentPokemon().getMaxHp());
+        enemyHealthBar.setValue(battleSystem.getOpponentPokemon().getHp());
+        enemyHealthBar.setStringPainted(true);
+
 
         lifeBarPanel.add(new JLabel("Enemy: " + battleSystem.getOpponentPokemon().getName()));
         lifeBarPanel.add(enemyHealthBar);
@@ -34,17 +37,24 @@ public class LifeBar extends JPanel {
         lifeBarPanel.add(new JLabel("Player: " + battleSystem.getPlayerPokemon().getName()));
         lifeBarPanel.add(playerHealthBar);
 
+        add(lifeBarPanel, BorderLayout.NORTH);
+
+       battleSystem.setUIComponents(this);
+
     }
 
     public void updateHealth(JLabel statusLabel) {
-        Pokemon player = battleSystem.getPlayerPokemon();
-        Pokemon enemy = battleSystem.getOpponentPokemon();
+        Pokemon pokemonPlayer = battleSystem.getPlayerPokemon();
+        Pokemon pokemonEnemy = battleSystem.getOpponentPokemon();
 
-        playerHealthBar.setValue(player.getHp());
-        enemyHealthBar.setValue(enemy.getHp());
+        playerHealthBar.setValue(battleSystem.getPlayerPokemon().getHp());
+        enemyHealthBar.setValue(battleSystem.getOpponentPokemon().getHp());
 
         statusLabel.setText(String.format("%s HP: %d/%d | %s HP: %d/%d",
-                player.getName(), player.getHp(), player.getMaxHp(),
-                enemy.getName(), enemy.getHp(), enemy.getMaxHp()));
+                pokemonPlayer.getName(), pokemonPlayer.getHp(), pokemonPlayer.getMaxHp(),
+                pokemonEnemy.getName(), pokemonEnemy.getHp(), pokemonEnemy.getMaxHp()));
+
+       revalidate();
+       repaint();
     }
 }

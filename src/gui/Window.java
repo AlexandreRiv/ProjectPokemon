@@ -10,17 +10,14 @@ import java.awt.BorderLayout;
 
 
 public class Window extends JFrame {
-    private BattlePanel battlePanel;
-    private Buttons buttonPanel;
-    private LifeBar lifeBar;
 
     public Window(BattleSystem battleSystem) {
 
         super("Pokemon Battle");
 
-        this.lifeBar = new LifeBar(battleSystem);
-        this.battlePanel = new BattlePanel(battleSystem);
-        this.buttonPanel = new Buttons(battleSystem, battlePanel);
+        LifeBar lifeBar = new LifeBar(battleSystem);
+        BattlePanel battlePanel = new BattlePanel(battleSystem , lifeBar);
+        Buttons buttonPanel = new Buttons(battleSystem, battlePanel);
 
         add(lifeBar, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -29,6 +26,7 @@ public class Window extends JFrame {
         setSize(500, 400);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         setLocationRelativeTo(null);
 
