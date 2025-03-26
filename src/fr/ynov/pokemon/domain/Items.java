@@ -11,4 +11,6 @@ public abstract class Items {
     public String getName() {
         return name;
     }
+
+    public abstract void use(Pokemon pokemon , Player player);
 }

@@ -15,24 +15,12 @@ public class Player {
         createInventory();
     }
 
-    public void usePotion(Pokemon pokemon) {
-        Heal heal = (Heal) inventory.getInventory().stream()
-                .filter(items -> items instanceof Heal)
-                .findFirst().orElse(null);
-        if (pokemon.isFainted()) {
-            System.out.println("This pokemon is already fainted");
-        } else {
-            if (heal != null) {
-                heal.use(pokemon);
-                System.out.println(pokemon.getName() + " has been healed");
-                inventory.removeItem(heal);
-            } else {
-                System.out.println("You don't have any heal potion");
-            }
-        }
-    }
-
     public void createInventory() {
         inventory.addItem(new Heal());
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
 }

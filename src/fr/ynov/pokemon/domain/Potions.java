@@ -7,4 +7,5 @@ public abstract class Potions extends Items {
         super(name);
     }
 
+    public abstract void use(Pokemon pokemon, Player player);
 }

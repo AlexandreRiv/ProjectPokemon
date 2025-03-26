@@ -2,6 +2,7 @@ package gui.buttons;
 
 import fr.ynov.pokemon.domain.BattleSystem;
 import fr.ynov.pokemon.domain.Moves;
+import gui.frame.BagFrame;
 import gui.panels.BattlePanel;
 
 import javax.swing.JPanel;
@@ -55,9 +56,13 @@ public class Buttons extends JPanel {
 
         movesPanel.add(buttonBag);
 
-        Moves move = new Moves("Potion", 0, 0, 0, 0, null, "");
-        buttonBag.addActionListener(e -> {battleSystem.getPlayer().usePotion(battleSystem.getPokemonFactory().getPlayerPokemon());
-        battlePanel.executeMove(move);});
+
+        buttonBag.addActionListener(e -> {
+             BagFrame bagframe = new BagFrame(battleSystem.getPlayer() ,
+                battleSystem.getPokemonFactory().getPlayerPokemon(),
+                battleSystem , battlePanel.getLifeBar() , battlePanel);
+                bagframe.setVisible(true);
+        });
 
         movesPanel.add(buttonPokemon);
 

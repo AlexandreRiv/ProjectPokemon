@@ -60,4 +60,9 @@ public class BattlePanel extends JPanel {
     }
 
 
+    public LifeBar getLifeBar() {
+        return lifeBar;
+    }
+
+
 }
