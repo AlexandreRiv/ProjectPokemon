@@ -6,12 +6,16 @@ public class Heal extends Potions {
 
     public Heal() {
         super("Heal");
-        this.heal = 20;
+        this.heal = 100;
     }
 
     public void use(Pokemon pokemon) {
        if (pokemon.getHp() < pokemon.getMaxHp()){
-           pokemon.setHp(pokemon.getHp() + heal);
+           if (pokemon.getHp() + heal >= pokemon.getMaxHp()) {
+               pokemon.setHp(pokemon.getMaxHp());
+           }else {
+                pokemon.setHp(pokemon.getHp() + heal);
+           }
        }
     }
 }

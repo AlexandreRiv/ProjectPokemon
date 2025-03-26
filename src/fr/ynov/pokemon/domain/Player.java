@@ -33,9 +33,6 @@ public class Player {
     }
 
     public void createInventory() {
-        for( int i = 0; i < 10; i++) {
-            inventory.addItem(new Heal());
-            System.out.println("Heal potion added to inventory");
-        }
+        inventory.addItem(new Heal());
     }
 }

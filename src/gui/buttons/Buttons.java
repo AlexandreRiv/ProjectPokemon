@@ -60,7 +60,9 @@ public class Buttons extends JPanel {
         battlePanel.executeMove(move);});
 
         movesPanel.add(buttonPokemon);
+
         movesPanel.add(buttonEscape);
+        buttonEscape.addActionListener(e -> {System.exit(0);});
 
     }
 

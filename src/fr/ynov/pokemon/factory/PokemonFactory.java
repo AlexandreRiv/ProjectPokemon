@@ -20,7 +20,7 @@ public class PokemonFactory {
         // Create player's Pokémon - Charizard
         Type fireType = types.getTypes().get("Fire");
         Type flyingType = types.getTypes().get("Flying");
-         playerPokemon = new Pokemon("Lourinade", 3, 150, 150, 84, 78, 50, fireType, flyingType);
+         playerPokemon = new Pokemon("Charizard", 3, 100, 150, 84, 78, 50, fireType, flyingType);
 
         // Add moves to Charizard
         Moves flamethrower = new Moves("Flamethrower", 95, 100, 15, 15 , fireType , "");
@@ -40,7 +40,7 @@ public class PokemonFactory {
 
         // Add moves to Blastoise
         Moves hydroPump = new Moves("Hydro Pump", 80, 120, 5, 5, waterType , "");
-        Moves surf = new Moves("Surf", 80, 95, 100, 15, waterType , "");
+        Moves surf = new Moves("Surf", 80, 95, 15, 15, waterType , "");
         Moves bite = new Moves("Bite", 60, 100, 25, 25, types.getTypes().get("Normal") , "");
         Moves iceBeam = new Moves("Ice Beam", 95, 100, 10, 10  , types.getTypes().get("Ice") , "");
 
