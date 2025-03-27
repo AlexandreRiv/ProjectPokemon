@@ -5,8 +5,7 @@ import fr.ynov.pokemon.domain.Moves;
 import gui.frame.BagFrame;
 import gui.panels.BattlePanel;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
@@ -43,32 +42,37 @@ public class Buttons extends JPanel {
         mainButton(battlePanel);
     }
 
+    // This method creates the main buttons for the battle panel
+    // and adds them to the movesPanel
     private void mainButton(BattlePanel battlePanel ) {
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
         JButton buttonAttack = new JButton("Attack");
         JButton buttonBag = new JButton("Bag");
         JButton buttonPokemon = new JButton("Pokemon");
         JButton buttonEscape = new JButton("Escape");
 
-        movesPanel.add(buttonAttack);
-
-        buttonAttack.addActionListener(e -> {showMoves(battlePanel);movesPanel.requestFocusInWindow();});
-
-        movesPanel.add(buttonBag);
-
-
-        buttonBag.addActionListener(e -> {
-             BagFrame bagframe = new BagFrame(battleSystem.getPlayer() ,
+        BagFrame bagFrame = new BagFrame(battleSystem.getPlayer() ,
                 battleSystem.getPokemonFactory().getPlayerPokemon(),
-                battleSystem , battlePanel.getLifeBar() , battlePanel);
-                bagframe.setVisible(true);
+                battleSystem , battlePanel.getLifeBar() , battlePanel );
+
+        battlePanel.add(bagFrame , BorderLayout.EAST);
+
+
+        buttonAttack.addActionListener(e -> {bagFrame.setVisible(false);showMoves(battlePanel);movesPanel.requestFocusInWindow();});
+
+        buttonBag.addActionListener(e ->{
+            bagFrame.setVisible(!bagFrame.isVisible());
+            battlePanel.revalidate();
+            battlePanel.repaint();
         });
-
-        movesPanel.add(buttonPokemon);
-
-        movesPanel.add(buttonEscape);
         buttonEscape.addActionListener(e -> {System.exit(0);});
 
+        movesPanel.add(buttonAttack);
+        movesPanel.add(buttonBag);
+        movesPanel.add(buttonPokemon);
+        movesPanel.add(buttonEscape);
     }
 
     private void showMoves(BattlePanel battlePanel) {

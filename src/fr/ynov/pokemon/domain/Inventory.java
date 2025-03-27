@@ -8,11 +8,14 @@ public class Inventory {
     private final int sizeMax;
     private List<Items> inventory;
 
+    // Constructor
 
     public Inventory() {
-        this.sizeMax = 10;
+        this.sizeMax = 50;
         this.inventory = new ArrayList<>();
     }
+
+    //methods
 
     /**
      * @return add item to inventory if inventory is not full
@@ -28,6 +31,8 @@ public class Inventory {
     public void removeItem(Items item) {
         inventory.remove(item);
     }
+
+    /// Getters and Setters
 
     public List<Items> getInventory() {
         return inventory;

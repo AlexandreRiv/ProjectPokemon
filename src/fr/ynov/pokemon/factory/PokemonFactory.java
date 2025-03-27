@@ -15,12 +15,15 @@ public class PokemonFactory {
         createPokemon();
     }
 
+    /**
+     * Creates the player's and opponent's Pokémon with their respective moves.
+     */
     private void createPokemon() {
 
         // Create player's Pokémon - Charizard
         Type fireType = types.getTypes().get("Fire");
         Type flyingType = types.getTypes().get("Flying");
-         playerPokemon = new Pokemon("Charizard", 3, 100, 150, 84, 78, 50, fireType, flyingType);
+         playerPokemon = new Pokemon("Charizard", 3, 150, 150, 84, 78, 50, fireType, flyingType);
 
         // Add moves to Charizard
         Moves flamethrower = new Moves("Flamethrower", 95, 100, 15, 15 , fireType , "");
@@ -36,7 +39,7 @@ public class PokemonFactory {
 
         // Create enemy Pokémon - Blastoise
         Type waterType = types.getTypes().get("Water");
-         opponentPokemon = new Pokemon("Balroise", 6, 100, 150, 83, 100, 85, waterType, null);
+         opponentPokemon = new Pokemon("Balroise", 6, 150, 150, 83, 100, 85, waterType, null);
 
         // Add moves to Blastoise
         Moves hydroPump = new Moves("Hydro Pump", 80, 120, 5, 5, waterType , "");

@@ -43,6 +43,12 @@ public class Pokemon {
         return hp <= 0;
     }
 
+
+    /**
+     * * @param move
+     *
+     * @return double of the effectiveness of the move depending on the type of the Pokemon
+     */
     public double getTypeEffectiveness(Type moveType) {
 
         double effectiveness = moveType.getEffectiveness(type.getName());

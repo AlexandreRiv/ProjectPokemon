@@ -13,6 +13,7 @@ public class LifeBar extends JPanel {
     private final BattleSystem battleSystem;
     private final JProgressBar playerHealthBar;
     private final JProgressBar enemyHealthBar;
+    private final JLabel statusLabel;
 
     public LifeBar(BattleSystem battleSystem) {
 
@@ -30,6 +31,8 @@ public class LifeBar extends JPanel {
         enemyHealthBar.setValue(battleSystem.getPokemonFactory().getOpponentPokemon().getHp());
         enemyHealthBar.setStringPainted(true);
 
+        this.statusLabel = new JLabel();
+        updateStatusLabel();
 
         lifeBarPanel.add(new JLabel("Enemy: " + battleSystem.getPokemonFactory().getOpponentPokemon().getName()));
         lifeBarPanel.add(enemyHealthBar);
@@ -43,18 +46,23 @@ public class LifeBar extends JPanel {
 
     }
 
-    public void updateHealth(JLabel statusLabel) {
+    public void updateHealth() {
         Pokemon pokemonPlayer = battleSystem.getPokemonFactory().getPlayerPokemon();
         Pokemon pokemonEnemy = battleSystem.getPokemonFactory().getOpponentPokemon();
 
         playerHealthBar.setValue(battleSystem.getPokemonFactory().getPlayerPokemon().getHp());
         enemyHealthBar.setValue(battleSystem.getPokemonFactory().getOpponentPokemon().getHp());
 
+        updateStatusLabel();
+        revalidate();
+        repaint();
+    }
+
+    private void updateStatusLabel() {
+        Pokemon pokemonPlayer = battleSystem.getPokemonFactory().getPlayerPokemon();
+        Pokemon pokemonEnemy = battleSystem.getPokemonFactory().getOpponentPokemon();
         statusLabel.setText(String.format("%s HP: %d/%d | %s HP: %d/%d",
                 pokemonPlayer.getName(), pokemonPlayer.getHp(), pokemonPlayer.getMaxHp(),
                 pokemonEnemy.getName(), pokemonEnemy.getHp(), pokemonEnemy.getMaxHp()));
-
-       revalidate();
-       repaint();
     }
 }

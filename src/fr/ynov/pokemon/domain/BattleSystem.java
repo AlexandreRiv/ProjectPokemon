@@ -42,6 +42,7 @@ public class BattleSystem {
             return moves.getFirst(); // Just return the first move for simplicity
         }
 
+        // select a random move from the available moves
         return availableMoves.get(random.nextInt(availableMoves.size()));
     }
 
@@ -66,14 +67,18 @@ public class BattleSystem {
 
         int damage = calculateDamage(attacker, defender, move, typeEffectiveness);
         defender.setHp(defender.getHp() - damage);
-
-        if (typeEffectiveness > 1) {
-            System.out.println("It's super effective!");
-        } else if (typeEffectiveness < 1) {
-            System.out.println("It's not very effective...");
-        }
     }
 
+
+    /**
+     * Calculate damage based on the attacker's stats, defender's stats, move power, and type effectiveness.
+     *
+     * @param attacker The attacking Pokemon
+     * @param defender The defending Pokemon
+     * @param move     The move being used
+     * @param typeEffectiveness The type effectiveness of the move against the defender
+     * @return The calculated damage
+     */
     private int calculateDamage(Pokemon attacker, Pokemon defender, Moves move, double typeEffectiveness) {
 
         double baseDamage = ((2 * attacker.getLevel() / 5.0 + 2) * move.getPower() * attacker.getAttack() / defender.getDefense()) / 50.0 + 2;
@@ -84,10 +89,11 @@ public class BattleSystem {
     }
 
 
+    // Execute move in the GUI
     public void executeMoveGUI(Pokemon attacker, Pokemon defender, Moves move) {
         executeMove(attacker, defender, move);
         if (lifeBar != null) {
-            lifeBar.updateHealth(new JLabel());
+            lifeBar.updateHealth();
         }
     }
 

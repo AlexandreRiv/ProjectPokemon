@@ -38,7 +38,7 @@ public class BattlePanel extends JPanel {
         }
 
 
-        lifeBar.updateHealth(statusLabel);
+        lifeBar.updateHealth();
         checkEndGame();
     }
 

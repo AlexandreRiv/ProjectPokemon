@@ -5,6 +5,37 @@ import java.util.Map;
 
 public class Type {
 
+    // Enum for type names
+    private enum TypeName {
+        FIRE("Fire"),
+        WATER("Water"),
+        FLYING("Flying"),
+        NORMAL("Normal"),
+        GROUND("Ground"),
+        ICE("Ice"),
+        ELECTRIC("Electric"),
+        GRASS("Grass"),
+        POISON("Poison"),
+        FIGHTING("Fighting"),
+        PSYCHIC("Psychic"),
+        BUG("Bug"),
+        ROCK("Rock"),
+        GHOST("Ghost"),
+        DRAGON("Dragon");
+
+        private final String value;
+
+        // Constructor for enum
+        TypeName(String value) {
+            this.value = value;
+        }
+
+        // Getter for enum value
+        public String getValue() {
+            return value;
+        }
+    }
+
     private String name;
     private final Map<String, Double> effectiveness;
     private Map<String, Type> types;
@@ -26,27 +57,43 @@ public class Type {
 
     // Method
 
+    /**
+     * Set the effectiveness of a type against another type
+     *
+     * @param attackType The attacking type
+     * @param defendType The defending type
+     * @param value      The effectiveness value
+     */
     private void setTypeEffectiveness(String attackType, String defendType, double value) {
         types.get(attackType).addEffectiveness(defendType, value);
     }
 
+    /**
+     * Set the effectiveness of a type against multiple types
+     *
+     * @param type The attacking type
+     * @param types The defending types and their effectiveness values
+     */
     private void setTypesEffectivenessFor(String type , String[][] types) {
         for (String[] typeEffectiveness : types) {
             setTypeEffectiveness(type, typeEffectiveness[0], Double.parseDouble(typeEffectiveness[1]));
         }
     }
 
+
+    /**
+     * Create types and their effectiveness
+     */
     private void createTypes() {
-
-        String[] typeNames = {"Fire", "Water", "Flying", "Normal",
-                "Ground", "Ice", "Electric", "Grass", "Poison", "Fighting",
-                "Psychic", "Bug", "Rock", "Ghost", "Dragon"
-        };
-
-        for (String typeName : typeNames) {
-            types.put(typeName, new Type(typeName));
+        for (TypeName type : TypeName.values()) {
+            types.put(type.getValue(), new Type(type.getValue()));
         }
     }
+
+
+    /**
+     * Initialize types and their effectiveness
+     */
     private void initializedTypes() {
         if (types == null){
             types = new HashMap<>();
@@ -55,6 +102,9 @@ public class Type {
         }
     }
 
+    /**
+     * Initialize the effectiveness of types
+     */
     private void initializeEffectiveness(){
         setTypesEffectivenessFor("Normal", new String[][]{
                 {"Rock" , "0.5"},
@@ -106,16 +156,26 @@ public class Type {
         });
     }
 
-
+    /**
+     * Add effectiveness for a type
+     */
     public void addEffectiveness(String type, double value) {
         this.effectiveness.put(type, value);
     }
+    // Method end
 
+
+    /**
+     * Get the effectiveness of a type against another type
+     *
+     * @param type The type to check effectiveness against
+     * @return The effectiveness value
+     */
     public double getEffectiveness(String type) {
         return this.effectiveness.getOrDefault(type, 1.0);
     }
 
-    // Method end
+
 
 
     // Getter
