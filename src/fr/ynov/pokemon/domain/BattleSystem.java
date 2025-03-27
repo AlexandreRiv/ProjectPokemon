@@ -3,7 +3,6 @@ package fr.ynov.pokemon.domain;
 import fr.ynov.pokemon.factory.PokemonFactory;
 import gui.frame.LifeBar;
 
-import javax.swing.JLabel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

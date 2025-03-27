@@ -1,6 +1,5 @@
 package fr.ynov.pokemon.domain;
 
-import javax.imageio.ImageReader;
 
 public abstract class Balls extends Items {
     private int prices;

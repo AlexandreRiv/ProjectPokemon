@@ -5,7 +5,9 @@ import fr.ynov.pokemon.domain.Moves;
 import gui.frame.BagFrame;
 import gui.panels.BattlePanel;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;

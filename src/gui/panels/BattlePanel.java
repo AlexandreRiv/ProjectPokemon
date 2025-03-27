@@ -4,7 +4,8 @@ import fr.ynov.pokemon.domain.BattleSystem;
 import fr.ynov.pokemon.domain.Moves;
 import gui.frame.LifeBar;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
 

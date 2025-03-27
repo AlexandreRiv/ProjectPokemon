@@ -5,7 +5,8 @@ import fr.ynov.pokemon.domain.Pokemon;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 public class LifeBar extends JPanel {

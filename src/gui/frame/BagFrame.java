@@ -1,6 +1,12 @@
 package gui.frame;
 
-import fr.ynov.pokemon.domain.*;
+import fr.ynov.pokemon.domain.Items;
+import fr.ynov.pokemon.domain.Player;
+import fr.ynov.pokemon.domain.Pokemon;
+import fr.ynov.pokemon.domain.Heal;
+import fr.ynov.pokemon.domain.Moves;
+import fr.ynov.pokemon.domain.BattleSystem;
+
 import gui.panels.BattlePanel;
 
 import javax.swing.JPanel;
