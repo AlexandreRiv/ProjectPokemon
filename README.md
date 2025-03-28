@@ -3,6 +3,10 @@
 ## Description
 Pokemon battle simulator developed in Java with Swing graphical interface. The game reproduces the basic mechanics of a Pokemon battle.
 
+### Prérequis
+- Java JDK 17 ou supérieur
+- Gradle 7.x ou supérieur
+
 ## Installation
 1. Clone repository
 ```bash
