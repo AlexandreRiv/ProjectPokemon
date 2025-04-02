@@ -16,6 +16,12 @@ public class LifeBar extends JPanel {
     private final JProgressBar enemyHealthBar;
     private final JLabel statusLabel;
 
+
+    /**
+     * Constructor for the LifeBar class.
+     *
+     * @param battleSystem The BattleSystem instance to be used for updating health.
+     */
     public LifeBar(BattleSystem battleSystem) {
 
         this.battleSystem = battleSystem;
@@ -24,8 +30,11 @@ public class LifeBar extends JPanel {
 
         JPanel lifeBarPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
+        // Set the size of the life bar panel
         this.playerHealthBar = new JProgressBar(0, battleSystem.getPokemonFactory().getPlayerPokemon().getMaxHp());
+        // Set the initial value of the health bar to the player's current HP
         playerHealthBar.setValue(battleSystem.getPokemonFactory().getPlayerPokemon().getHp());
+        // Set the string painted to true to show the current HP
         playerHealthBar.setStringPainted(true);
 
         this.enemyHealthBar = new JProgressBar(0, battleSystem.getPokemonFactory().getOpponentPokemon().getMaxHp());
@@ -35,6 +44,7 @@ public class LifeBar extends JPanel {
         this.statusLabel = new JLabel();
         updateStatusLabel();
 
+        // Add the status label to the life bar panel
         lifeBarPanel.add(new JLabel("Enemy: " + battleSystem.getPokemonFactory().getOpponentPokemon().getName()));
         lifeBarPanel.add(enemyHealthBar);
 
@@ -47,9 +57,11 @@ public class LifeBar extends JPanel {
 
     }
 
+    /**
+     * Updates the health bars for both the player and the enemy.
+     * This method retrieves the current HP of both Pokemon and updates the progress bars accordingly.
+     */
     public void updateHealth() {
-        Pokemon pokemonPlayer = battleSystem.getPokemonFactory().getPlayerPokemon();
-        Pokemon pokemonEnemy = battleSystem.getPokemonFactory().getOpponentPokemon();
 
         playerHealthBar.setValue(battleSystem.getPokemonFactory().getPlayerPokemon().getHp());
         enemyHealthBar.setValue(battleSystem.getPokemonFactory().getOpponentPokemon().getHp());
@@ -59,9 +71,16 @@ public class LifeBar extends JPanel {
         repaint();
     }
 
+    /**
+     * Updates the status label to display the current HP of both the player and the enemy Pokemon.
+     * This method retrieves the current HP and maximum HP of both Pokemon and updates the label accordingly.
+     */
     private void updateStatusLabel() {
+
         Pokemon pokemonPlayer = battleSystem.getPokemonFactory().getPlayerPokemon();
         Pokemon pokemonEnemy = battleSystem.getPokemonFactory().getOpponentPokemon();
+
+        // Update the status label with the current HP of both Pokemon
         statusLabel.setText(String.format("%s HP: %d/%d | %s HP: %d/%d",
                 pokemonPlayer.getName(), pokemonPlayer.getHp(), pokemonPlayer.getMaxHp(),
                 pokemonEnemy.getName(), pokemonEnemy.getHp(), pokemonEnemy.getMaxHp()));

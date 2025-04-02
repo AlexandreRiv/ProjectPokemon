@@ -1,58 +1,117 @@
 package fr.ynov.pokemon.factory;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.ynov.pokemon.domain.Moves;
 import fr.ynov.pokemon.domain.Pokemon;
 import fr.ynov.pokemon.domain.Type;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+
 
 public class PokemonFactory {
 
     private final Type types;
     private Pokemon playerPokemon;
     private Pokemon opponentPokemon;
+    private final MovesFactory movesFactory;
+    private final List<Moves> allMoves;
+    private final List<Pokemon> allPokemon;
+    private final Random random;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
 
     public PokemonFactory() {
         types = new Type();
-        createPokemon();
+        movesFactory = new MovesFactory();
+        allMoves = movesFactory.getMoves();
+        this.allPokemon = loadPokemonFromJson();
+        this.random = new Random();
+        setRandomPokemon();
     }
+
+
+    // Same as MovesFactory
+    private List<Pokemon> loadPokemonFromJson() {
+
+        try {
+
+            InputStream inputStream = getClass().getResourceAsStream("/Pokemon.json");
+            JsonNode root = MAPPER.readTree(inputStream);
+            JsonNode pokemonArray = root.get("pokemon");
+
+            List<Pokemon> pokemonList = new ArrayList<>();
+
+            for (JsonNode pokemonNode : pokemonArray) {
+
+                String name = pokemonNode.get("name").asText();
+                int id = pokemonNode.get("id").asInt();
+                int hp = pokemonNode.get("hp").asInt();
+                int attack = pokemonNode.get("attack").asInt();
+                int defense = pokemonNode.get("defense").asInt();
+                int speed = pokemonNode.get("speed").asInt();
+                int level = pokemonNode.get("level").asInt();
+
+                Type type1 = types.getTypes().get(pokemonNode.get("type").asText().toLowerCase());
+                Type type2 = null;
+                if (!pokemonNode.get("type2").isNull()) {
+                    type2 = types.getTypes().get(pokemonNode.get("type2").asText().toLowerCase());
+                }
+
+                Pokemon pokemon = new Pokemon(name, id, hp, hp, attack, defense, speed, level,type1, type2);
+                pokemonList.add(pokemon);
+            }
+            return pokemonList;
+        } catch (IOException e) {
+            throw new RuntimeException("Pokémon loading error: " + e.getMessage());
+        }
+    }
+
+    public void setRandomPokemon() {
+
+        playerPokemon = allPokemon.get(random.nextInt(allPokemon.size()));
+        opponentPokemon = allPokemon.get(random.nextInt(allPokemon.size()));
+
+        assignMovesToPokemon(playerPokemon);
+        assignMovesToPokemon(opponentPokemon);
+
+    }
+
 
     /**
-     * Creates the player's and opponent's Pokémon with their respective moves.
+     * Randomly assigns up to 4 moves to a Pokemon.
+     * The moves must be either of normal type or match one of the Pokemon's types.
+     * The method tries to assign moves until the Pokemon has 4 moves or the
+     * maximum number of attempts is reached.
+     *
+     * @param pokemon The Pokemon to assign moves to
      */
-    private void createPokemon() {
+    private void assignMovesToPokemon(Pokemon pokemon) {
 
-        // Create player's Pokémon - Charizard
-        Type fireType = types.getTypes().get("Fire");
-        Type flyingType = types.getTypes().get("Flying");
-         playerPokemon = new Pokemon("Charizard", 3, 150, 150, 84, 78, 50, fireType, flyingType);
+        int attempts = 0;
 
-        // Add moves to Charizard
-        Moves flamethrower = new Moves("Flamethrower", 95, 100, 15, 15 , fireType , "");
-        Moves fireBlast = new Moves("Fire Blast", 120, 85, 5, 5, fireType , "");
-        Moves slash = new Moves("Slash", 70, 100, 20, 20 , types.getTypes().get("Normal") , "");
-        Moves earthquake = new Moves("Earthquake", 100, 100, 10, 10 , types.getTypes().get("Ground") , "");
+        while (pokemon.getMoves().size() < 4 && attempts < 50) {
+            //generate a random moves
+            Moves move = allMoves.get(random.nextInt(allMoves.size()));
 
+            //verify if the moves Type match with the Pokemon's Type
+            boolean isValidMove = Objects.equals(move.getType().getName(), "normal") ||
+                    Objects.equals(pokemon.getType().getName(), move.getType().getName()) ||
+                    (pokemon.getType2() != null && Objects.equals(pokemon.getType2().getName(), move.getType().getName()));
 
-        playerPokemon.addMoves(flamethrower);
-        playerPokemon.addMoves(fireBlast);
-        playerPokemon.addMoves(slash);
-        playerPokemon.addMoves(earthquake);
+            // Verify if the moves is not already learned
+            if (isValidMove && !pokemon.getMoves().contains(move)) {
+                pokemon.addMoves(move);
+            }
 
-        // Create enemy Pokémon - Blastoise
-        Type waterType = types.getTypes().get("Water");
-         opponentPokemon = new Pokemon("Balroise", 6, 150, 150, 83, 100, 85, waterType, null);
-
-        // Add moves to Blastoise
-        Moves hydroPump = new Moves("Hydro Pump", 80, 120, 5, 5, waterType , "");
-        Moves surf = new Moves("Surf", 80, 95, 15, 15, waterType , "");
-        Moves bite = new Moves("Bite", 60, 100, 25, 25, types.getTypes().get("Normal") , "");
-        Moves iceBeam = new Moves("Ice Beam", 95, 100, 10, 10  , types.getTypes().get("Ice") , "");
-
-        opponentPokemon.addMoves(hydroPump);
-        opponentPokemon.addMoves(surf);
-        opponentPokemon.addMoves(bite);
-        opponentPokemon.addMoves(iceBeam);
-
+            attempts++;
+        }
     }
+
+
 
     public Pokemon getPlayerPokemon() {
         return playerPokemon;

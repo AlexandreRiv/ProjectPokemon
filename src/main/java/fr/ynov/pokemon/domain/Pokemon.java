@@ -19,16 +19,16 @@ public class Pokemon {
 
     // Constructor
 
-    public Pokemon(String name, int i, int i1,int i2 , int i3, int i4, int i5, Type type3, Type type4) {
+    public Pokemon(String name, int id, int hp,int maxHp , int attack, int defense, int speed,int level, Type type3, Type type4) {
 
         this.name = name;
-        this.id = i;
-        this.hp = i1;
-        this.maxHp = i2;
-        this.attack = i3;
-        this.defense = i4;
-        this.speed = i5;
-        this.level = 50;
+        this.id = id;
+        this.hp = hp;
+        this.maxHp = maxHp;
+        this.attack = attack;
+        this.defense = defense;
+        this.speed = speed;
+        this.level = level;
         this.type = type3;
         this.type2 = type4;
         this.moves = new ArrayList<Moves>();
@@ -101,4 +101,8 @@ public class Pokemon {
     public int getLevel() {
         return level;
     }
+
+    public Type getType() {return type;}
+
+    public Type getType2() {return type2;}
 }

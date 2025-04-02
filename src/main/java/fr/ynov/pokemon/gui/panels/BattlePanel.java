@@ -16,10 +16,23 @@ public class BattlePanel extends JPanel {
     private final LifeBar lifeBar;
     private final JLabel statusLabel;
 
+    /**
+     * Initializes the battle panel that displays the battle status.
+     * This constructor sets up the graphical interface of the battle with the following elements:
+     *
+     * - Stores references to the battle system and life bar
+     * - Configures the layout using BorderLayout
+     * - Sets a JLabel to display the battle status
+     * - Sets the life bar for the battle system
+     *
+     * @param battleSystem The current battle system
+     * @param lifeBar The life bar to be used in the battle
+     */
     public BattlePanel(BattleSystem battleSystem , LifeBar lifeBar) {
 
         this.battleSystem = battleSystem;
         this.lifeBar = lifeBar;
+
         setLayout(new BorderLayout());
 
         statusLabel = new JLabel("Battle Started!");
@@ -29,7 +42,12 @@ public class BattlePanel extends JPanel {
     }
 
 
-
+    /**
+     * Executes the player's move in the battle.
+     * This method takes the player's selected move and executes it against the opponent's Pokemon.
+     * It also checks if the opponent's Pokemon has fainted and executes the enemy's move if not.
+     * Finally, it updates the health bars and checks for the end of the game.
+     */
     public void executeMove(Moves playerMoves) {
 
         battleSystem.executeMoveGUI(battleSystem.getPokemonFactory().getPlayerPokemon() , battleSystem.getPokemonFactory().getOpponentPokemon(), playerMoves);
@@ -44,7 +62,10 @@ public class BattlePanel extends JPanel {
     }
 
 
-
+    /**
+     * check if the game has ended.
+     * This method checks if either the player's or the opponent's Pokemon has fainted.
+     */
     private void checkEndGame() {
 
         if (battleSystem.getPokemonFactory().getOpponentPokemon().isFainted()) {

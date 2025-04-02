@@ -7,21 +7,21 @@ public class Type {
 
     // Enum for type names
     private enum TypeName {
-        FIRE("Fire"),
-        WATER("Water"),
-        FLYING("Flying"),
-        NORMAL("Normal"),
-        GROUND("Ground"),
-        ICE("Ice"),
-        ELECTRIC("Electric"),
-        GRASS("Grass"),
-        POISON("Poison"),
-        FIGHTING("Fighting"),
-        PSYCHIC("Psychic"),
-        BUG("Bug"),
-        ROCK("Rock"),
-        GHOST("Ghost"),
-        DRAGON("Dragon");
+        FIRE("fire"),
+        WATER("water"),
+        FLYING("flying"),
+        NORMAL("normal"),
+        GROUND("ground"),
+        ICE("ice"),
+        ELECTRIC("electric"),
+        GRASS("grass"),
+        POISON("poison"),
+        FIGHTING("fighting"),
+        PSYCHIC("psychic"),
+        BUG("bug"),
+        ROCK("rock"),
+        GHOST("ghost"),
+        DRAGON("dragon");
 
         private final String value;
 
@@ -106,53 +106,53 @@ public class Type {
      * Initialize the effectiveness of types
      */
     private void initializeEffectiveness(){
-        setTypesEffectivenessFor("Normal", new String[][]{
-                {"Rock" , "0.5"},
-                {"Ghost" , "0.0"}
+        setTypesEffectivenessFor("normal", new String[][]{
+                {"rock" , "0.5"},
+                {"ghost" , "0.0"}
         });
 
         // Fire type effectiveness
-        setTypesEffectivenessFor("Fire" , new String[][]{
-                {"Fire" , "0.5"},
-                {"Water" , "0.5"},
-                {"Grass" , "2.0"},
-                {"Ice" , "2.0"},
-                {"Bug" , "2.0"},
-                {"Rock" , "0.5"},
-                {"Dragon" , "0.5"}
+        setTypesEffectivenessFor("fire" , new String[][]{
+                {"fire" , "0.5"},
+                {"water" , "0.5"},
+                {"grass" , "2.0"},
+                {"ice" , "2.0"},
+                {"bug" , "2.0"},
+                {"rock" , "0.5"},
+                {"dragon" , "0.5"}
         });
 
 
         // Water type effectiveness
-        setTypesEffectivenessFor("Water", new String[][]{
-                {"Fire","2.0"},
-                {"Water","0.5"},
-                {"Grass","0.5"},
-                {"Ground","2.0"},
-                {"Rock","2.0"},
-                {"Dragon","0.5"}
+        setTypesEffectivenessFor("water", new String[][]{
+                {"fire","2.0"},
+                {"water","0.5"},
+                {"grass","0.5"},
+                {"ground","2.0"},
+                {"rock","2.0"},
+                {"dragon","0.5"}
         });
 
         // Grass type effectiveness
-        setTypesEffectivenessFor("Grass", new String[][]{
-                {"Fire","0.5"},
-                {"Water","2.0"},
-                {"Grass","0.5"},
-                {"Poison","0.5"},
-                {"Ground","2.0"},
-                {"Flying","0.5"},
-                {"Bug","0.5"},
-                {"Rock","2.0"},
-                {"Dragon","0.5"}
+        setTypesEffectivenessFor("grass", new String[][]{
+                {"fire","0.5"},
+                {"water","2.0"},
+                {"grass","0.5"},
+                {"poison","0.5"},
+                {"ground","2.0"},
+                {"flying","0.5"},
+                {"bug","0.5"},
+                {"rock","2.0"},
+                {"dragon","0.5"}
         });
 
         // Flying type effectiveness
-        setTypesEffectivenessFor("Flying", new String[][]{
-                {"Electric","0.5"},
-                {"Grass","2.0"},
-                {"Fighting","2.0"},
-                {"Bug","2.0"},
-                {"Rock","0.5"}
+        setTypesEffectivenessFor("flying", new String[][]{
+                {"electric","0.5"},
+                {"grass","2.0"},
+                {"fighting","2.0"},
+                {"bug","2.0"},
+                {"rock","0.5"}
         });
     }
 
