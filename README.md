@@ -13,14 +13,21 @@ Pokemon battle simulator developed in Java with Swing graphical interface. The g
   git clone https://github.com/AlexandreRiv/ProjectPokemon.git
 ```    
 
-2. Open project in IntelliJ IDEA
-3. Run ApplicationRunner class in the main directory
+2. Open project 
+ ```bash
+  cd ProjectPokemon
+  ./gradlew run
+ ```
+Or run ApplicationRunner class in the main directory
 
 
 ## Features
-- Battle between Charizard and Blastoise
+- 2 Pokemon (Player and Opponent) 
+- Pokemon are created with a Json in random order
 - Type system (Fire, Water, Flight, etc.)
-- 4 different moves per Pokemon
+- Type advantages and disadvantages
+- moves with different types and damages
+- A Pokemon can have 4 moves of his type or Normal type 
 - Full graphical interface with :
     - Action buttons (Attack, Bag, Pokemon, Escape)
     - Life bars
@@ -35,7 +42,11 @@ Pokemon battle simulator developed in Java with Swing graphical interface. The g
 
 
 ## Controls
-- Left click: Select action
+- Left click: Select action and moves
+- - Mouse navigation:
+  - Click on moves to attack
+  - Click on bag to access items
+  - Click on items to use them
 - Back key: Return to main menu
 - Escape key: Exit game
 
